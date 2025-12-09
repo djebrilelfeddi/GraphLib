@@ -1,0 +1,1 @@
+g++ -Wall -Wextra -std=c++17 -Iinclude src/exercice1.cpp -o exercice1

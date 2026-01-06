@@ -98,6 +98,56 @@ int main() {
 }
 ```
 
+### With Custom Struct
+
+```cpp
+#include <iostream>
+#include "graphlib.hpp"
+
+// Custom vertex type
+struct Point {
+    int x, y;
+    bool operator==(const Point& other) const {
+        return x == other.x && y == other.y;
+    }
+    bool operator<(const Point& other) const {
+        return (x < other.x) || (x == other.x && y < other.y);
+    }
+};
+
+// Custom hash function
+struct PointHash {
+    size_t operator()(const Point& p) const {
+        return std::hash<int>{}(p.x) ^ (std::hash<int>{}(p.y) << 1);
+    }
+};
+
+int main() {
+    Graph<Point, PointHash> g;
+
+    Point a{0, 0}, b{1, 0}, c{1, 1}, d{0, 1};
+    g.addEdge(a, b);
+    g.addEdge(b, c);
+    g.addEdge(c, d);
+    g.addEdge(d, a);
+
+    // Graph structure (a square):
+    //  d --- c
+    //  |     |
+    //  a --- b
+
+    std::cout << g.countVertices() << std::endl;  // Output: 4
+    std::cout << g.countEdges() << std::endl;     // Output: 4
+    std::cout << g.degree(a) << std::endl;        // Output: 2
+
+    if (auto dist = g.distance(a, c)) {
+        std::cout << *dist << std::endl;          // Output: 2
+    }
+
+    return 0;
+}
+```
+
 ## Running Tests
 
 The project comes with a comprehensive test suite (Unit Tests & Boost Tests).

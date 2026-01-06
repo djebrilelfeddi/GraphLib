@@ -18,6 +18,23 @@
 
 **GraphLib** is a high-performance, header-only C++20 library for managing and manipulating undirected graphs. Designed for efficiency and ease of use, it leverages modern C++ features and standard STL containers, and works with any efficient key type (integers, strings, custom structures).
 
+## Installation
+
+Since GraphLib is a header-only library, no compilation is required for the library itself.
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/djebrilelfeddi/GraphLib.git
+    cd GraphLib
+    ```
+
+2.  **Include in your project:**
+    Simply copy `graphlib.hpp` to your project's include directory.
+
+    ```cpp
+    #include "graphlib.hpp"
+    ```
+    
 ## Available Methods
 
 > **Legend**: `n` = vertices, `m` = edges, `d` = degree of vertex, `V` = visited vertices, `E` = visited edges
@@ -43,59 +60,38 @@
 | `distance(u, v)` | **Returns shortest path distance**, or `std::nullopt` if unreachable. | O(V + E) |
 | `begin()` / `end()` | **Iterators** for range-based loops over vertices. | O(1) |
 
-## Prerequisites
-
-- A C++20 compatible compiler (GCC 10+, Clang 10+, MSVC 19.28+).
-- **Make** (for build automation).
-- **Boost Libraries** (only required for running unit tests).
-
-## Installation
-
-Since GraphLib is a header-only library, no compilation is required for the library itself.
-
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/djebrilelfeddi/GraphLib.git
-    cd GraphLib
-    ```
-
-2.  **Include in your project:**
-    Simply copy `graphlib.hpp` to your project's include directory.
-
-    ```cpp
-    #include "graphlib.hpp"
-    ```
-
 ## Usage Example
 
 ```cpp
 #include <iostream>
-#include <string>
 #include "graphlib.hpp"
 
 int main() {
-    // Create a graph of Strings
-    Graph<std::string> g;
+    // Create a graph of integers
+    Graph<int> g;
 
     // Add edges (vertices are created automatically)
-    g.addEdge("Paris", "London");
-    g.addEdge("London", "New York");
-    g.addEdge("Paris", "Tokyo");
+    g.addEdge(1, 2);
+    g.addEdge(2, 3);
+    g.addEdge(1, 4);
 
-    // Print degrees
-    std::cout << "Degree of Paris: " << g.degree("Paris") << std::endl;
+    // Graph structure:
+    //     1 --- 2 --- 3
+    //     |
+    //     4
+
+    std::cout << g.degree(1) << std::endl;          // Output: 2
+    std::cout << g.countVertices() << std::endl;    // Output: 4
+    std::cout << g.countEdges() << std::endl;       // Output: 3
 
     // BFS Traversal
-    auto path = g.bfs("Paris");
-    std::cout << "BFS from Paris: ";
-    for (const auto& city : path) {
-        std::cout << city << " ";
-    }
+    auto path = g.bfs(1);
+    for (int v : path) std::cout << v << " ";       // Output: 1 2 4 3
     std::cout << std::endl;
 
-    // Calculate Distance
-    if (auto dist = g.distance("Paris", "New York")) {
-        std::cout << "Distance Paris -> New York: " << *dist << std::endl;
+    // Shortest path distance
+    if (auto dist = g.distance(1, 3)) {
+        std::cout << *dist << std::endl;            // Output: 2
     }
 
     return 0;

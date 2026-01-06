@@ -1,41 +1,44 @@
-# Compilateur et flags
+# Author: EL FEDDI DJEBRIL
+
 CXX = g++
-CXXFLAGS = -Wall -Wextra -std=c++17 -I$(INCDIR)
+CXXFLAGS = -std=c++20 -Wall -Ofast
 
-# Répertoires
-SRCDIR = src
-INCDIR = include
-OBJDIR = obj
+# Detect OS and set appropriate Boost library name
+# Windows/MSYS2 uses -mt suffix since only mt is available on MSYS2, MINGW,.., Linux uses no suffix
+ifeq ($(OS),Windows_NT)
+    BOOST_LIBS = -lboost_unit_test_framework-mt
+    EXE_EXT = .exe
+    RUN_PREFIX = 
+else
+    BOOST_LIBS = -lboost_unit_test_framework
+    EXE_EXT =
+    RUN_PREFIX = ./
+endif
 
-# Nom de l'exécutable
-TARGET = program
+# Targets
+EXERCISES = exercice1 exercice2 exercice3 exercice4 exercice5 exercice6
 
-# Trouver tous les fichiers sources et générer les fichiers objets correspondants
-SRCS = $(wildcard $(SRCDIR)/*.cpp)
-OBJS = $(patsubst $(SRCDIR)/%.cpp,$(OBJDIR)/%.o,$(SRCS))
+.PHONY: all clean boost test testboost
 
-# Règle par défaut
-all: $(TARGET)
+all: $(EXERCISES)
 
-# Règle pour créer l'exécutable
-$(TARGET): $(OBJS)
-	$(CXX) $(CXXFLAGS) -o $@ $^
+exercice%: exercice%.cpp graph.hpp
+	$(CXX) $(CXXFLAGS) -o $@$(EXE_EXT) $<
 
-# Règle pour compiler les fichiers objets
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+boost: boosttest.cpp graph.hpp
+	$(CXX) $(CXXFLAGS) -o boosttest$(EXE_EXT) $< $(BOOST_LIBS)
 
-# Créer le répertoire obj si nécessaire
-$(OBJDIR):
-	mkdir -p $(OBJDIR)
-
-# Nettoyer les fichiers compilés
 clean:
-	rm -rf $(OBJDIR) $(TARGET)
+	rm -f *.exe exercice1 exercice2 exercice3 exercice4 exercice5 exercice6 boosttest
 
-# Recompiler tout
-rebuild: clean all
+test: all
+	@echo "=== exercice1 ===" && $(RUN_PREFIX)exercice1$(EXE_EXT)
+	@echo "=== exercice2 ===" && $(RUN_PREFIX)exercice2$(EXE_EXT)
+	@echo "=== exercice3 ===" && $(RUN_PREFIX)exercice3$(EXE_EXT)
+	@echo "=== exercice4 ===" && $(RUN_PREFIX)exercice4$(EXE_EXT)
+	@echo "=== exercice5 ===" && $(RUN_PREFIX)exercice5$(EXE_EXT)
+	@echo "=== exercice6 ===" && $(RUN_PREFIX)exercice6$(EXE_EXT)
 
-# Phony targets
-.PHONY: all clean rebuild
-
+testboost: boost
+	@echo "Running Boost tests..."
+	$(RUN_PREFIX)boosttest$(EXE_EXT)

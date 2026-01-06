@@ -38,6 +38,14 @@ int main() {
   assert(bfs_shortlist[1] == 33 || bfs_shortlist[1] == 42);
   assert(bfs_shortlist[2] == 33 || bfs_shortlist[2] == 42);
   
+  assert(*g.distance(11,11) == 0);
+  assert(*g.distance(11,32) == 3);
+  assert(!g.distance(999,11).has_value());
+  g.addEdge(998,999);
+  assert(!g.distance(999,11).has_value());
+  g.addEdge(998,11);
+  assert(*g.distance(999,11) == 2);
+
   std::cout << "Vous avez reussi !" << std::endl;
   
   return 0;

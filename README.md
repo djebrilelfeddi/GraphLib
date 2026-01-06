@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- Logo -->
-<img src="https://i.ibb.co/Xr6w8Fyv/graphlib.png" alt="GraphLib Logo" width="900"/>
+<img src="https://iili.io/fOMHAWQ.png" alt="GraphLib Logo" width="900"/>
 
 <br/>
 

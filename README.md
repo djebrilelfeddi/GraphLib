@@ -22,7 +22,7 @@
 
 > **Legend**: `n` = vertices, `m` = edges, `d` = degree of vertex, `V` = visited vertices, `E` = visited edges
 
-| Function | Description | Complexity |
+| Function | Description | Complexity (amortized) |
 |----------|-------------|------------|
 | `addVertex(v)` | **Adds a vertex** to the graph. No effect if it already exists. | O(1) |
 | `addEdge(u, v)` | **Adds an undirected edge** between two vertices. Creates vertices if needed. Self-loops are ignored. | O(1) |

@@ -13,7 +13,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "graph.hpp"
+#include "graphlib.hpp"
 
 int main() {
     Graph<std::string> g;

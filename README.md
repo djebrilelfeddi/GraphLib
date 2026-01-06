@@ -49,10 +49,10 @@ Since GraphLib is a header-only library, no compilation is required for the libr
     ```
 
 2.  **Include in your project:**
-    Simply copy `graph.hpp` to your project's include directory.
+    Simply copy `graphlib.hpp` to your project's include directory.
 
     ```cpp
-    #include "graph.hpp"
+    #include "graphlib.hpp"
     ```
 
 ## Usage Example
@@ -60,7 +60,7 @@ Since GraphLib is a header-only library, no compilation is required for the libr
 ```cpp
 #include <iostream>
 #include <string>
-#include "graph.hpp"
+#include "graphlib.hpp"
 
 int main() {
     // Create a graph of Strings

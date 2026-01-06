@@ -26,12 +26,12 @@ TESTS = test1 test2 test3 test4 test5 test6
 all: $(TESTS)
 
 # Build test executables
-test%: tests/test%.cpp graph.hpp
+test%: tests/test%.cpp graphlib.hpp
 	$(MKDIR)
 	$(CXX) $(CXXFLAGS) -I. -o build/$@$(EXE_EXT) $<
 
 # Boost tests
-boost: tests/boosttests.cpp graph.hpp
+boost: tests/boosttests.cpp graphlib.hpp
 	$(MKDIR)
 	$(CXX) $(CXXFLAGS) -I. -o build/boosttests$(EXE_EXT) $< $(BOOST_LIBS)
 

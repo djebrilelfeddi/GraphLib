@@ -1,5 +1,5 @@
 /**
- * @file graph.hpp
+ * @file graphlib.hpp
  * @brief Undirected graph implementation using adjacency list
  * @author EL FEDDI DJEBRIL
  */
@@ -100,25 +100,23 @@ public:
     /**
      * @brief Returns the degree (number of neighbors) of a vertex
      * @param v The vertex to check
-     * @return The degree of v, or -1 if v is not in the graph
+     * @return The degree of v, or 0 if v is not in the graph
      * @note Complexity: O(1) amortized
      */
-    int degree(const VertexParam v) const {
+    size_t degree(const VertexParam v) const {
         auto it = adj.find(v);
-        return (it != adj.end()) ? static_cast<int>(it->second.size()) : -1;
+        return (it != adj.end()) ? it->second.size() : 0;
     }
 
     /**
      * @brief Returns the maximum degree in the graph
-     * @return The maximum degree, or -1 if the graph is empty
+     * @return The maximum degree, or 0 if the graph is empty
      * @note Complexity: O(n) where n is the number of vertices
      */
-    int maxDegree() const {
-        if (adj.empty()) return -1;
-        int max_d = 0;
+    size_t maxDegree() const {
+        size_t max_d = 0;
         for (const auto& [_, neighbors] : adj) {
-            int deg = static_cast<int>(neighbors.size());
-            if (deg > max_d) max_d = deg;
+            if (neighbors.size() > max_d) max_d = neighbors.size();
         }
         return max_d;
     }
@@ -128,8 +126,8 @@ public:
      * @return The number of vertices
      * @note Complexity: O(1)
      */
-    int countVertices() const {
-        return static_cast<int>(adj.size());
+    size_t countVertices() const {
+        return adj.size();
     }
 
     /**
@@ -138,10 +136,10 @@ public:
      * @note Here i used https://en.wikipedia.org/wiki/Handshaking_lemma as a reference
      * @note Complexity: O(n) where n is the number of vertices
      */
-    int countEdges() const {
-        int total = 0;
+    size_t countEdges() const {
+        size_t total = 0;
         for (const auto& [_, neighbors] : adj) {
-            total += static_cast<int>(neighbors.size());
+            total += neighbors.size();
         }
         return total / 2;
     }
@@ -255,7 +253,7 @@ public:
      * @note Here i used https://en.wikipedia.org/wiki/Breadth-first_search as a reference
      * @note Complexity: O(V + E) where V is visited vertices and E visited edges
      */
-    std::vector<Vertex> bfs(const VertexParam v, int maxv = 0) const {
+    std::vector<Vertex> bfs(const VertexParam v, size_t maxv = 0) const {
         std::vector<Vertex> result;
         if (!containsVertex(v)) return result;
         
@@ -268,7 +266,7 @@ public:
         seen.insert(v);
         
         while (!pending.empty()) {
-            if (maxv > 0 && static_cast<int>(result.size()) >= maxv) break;
+            if (maxv > 0 && result.size() >= maxv) break;
             
             Vertex current = pending.front();
             pending.pop();

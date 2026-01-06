@@ -12,7 +12,7 @@
 #include <boost/test/unit_test.hpp>
 
 #include <iostream>
-#include "graph.hpp"
+#include "graphlib.hpp"
 
 // =============================================================================
 // TEST SUITE 1: Basic Vertex and Edge Operations

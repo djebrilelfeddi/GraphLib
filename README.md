@@ -18,19 +18,30 @@
 
 **GraphLib** is a high-performance, header-only C++20 library for managing and manipulating undirected graphs. Designed for efficiency and ease of use, it leverages modern C++ features and standard STL containers, and works with any efficient key type (integers, strings, custom structures).
 
-## Features
+## Available Methods
 
-- **Generic Implementation**: Works with any efficient key type (integers, strings, custom objects).
-- **High Performance**: 
-  - Adjacency list representation using `std::unordered_map` and `std::unordered_set`.
-  - **O(1)** amortized complexity for vertex/edge insertion and lookup.
-  - "Single Lookup" optimizations for removal operations.
-  - Memory pre-allocation (`reserve`) to prevent costly rehashing.
-- **STL Compatible**: Includes a fully compliant `iterator` class (LegacyInputIterator) for range-based loops.
-- **Robust Algorithms**:
-  - Breadth-First Search (BFS).
-  - Shortest path calculation (Memory-optimized Level-by-Level BFS).
-- **Flexible**: Supports custom hash functions for complex vertex types.
+> **Legend**: `n` = vertices, `m` = edges, `d` = degree of vertex, `V` = visited vertices, `E` = visited edges
+
+| Function | Description | Complexity |
+|----------|-------------|------------|
+| `addVertex(v)` | **Adds a vertex** to the graph. No effect if it already exists. | O(1) |
+| `addEdge(u, v)` | **Adds an undirected edge** between two vertices. Creates vertices if needed. Self-loops are ignored. | O(1) |
+| `containsVertex(v)` | **Checks if a vertex exists** in the graph. | O(1) |
+| `containsEdge(u, v)` | **Checks if an edge exists between** two vertices. | O(1) |
+| `degree(v)` | **Returns the number of neighbors** of a vertex. | O(1) |
+| `maxDegree()` | **Returns the maximum degree** in the graph. | O(n) |
+| `countVertices()` | **Returns the total number** of vertices. | O(1) |
+| `countEdges()` | **Returns the total number** of edges. | O(n) |
+| `removeEdge(u, v)` | **Removes an edge between** two vertices. | O(1) |
+| `removeVertex(v)` | **Removes a vertex and all** its incident edges. | O(d) |
+| `clear()` | **Removes all vertices and edges** from the graph. | O(n + m) |
+| `vertices()` | **Returns an `unordered_set` of all** vertices. | O(n) |
+| `edges()` | **Returns an `unordered_set` of all edges** as pairs. | O(m) |
+| `neighbors(v)` | **Returns the set of neighbors** of a vertex. | O(1) |
+| `closedNeighbors(v)` | **Returns neighbors of a vertex** including itself. | O(d) |
+| `bfs(v, maxv)` | **Performs BFS from a vertex.** Optional limit on visited vertices. | O(V + E) |
+| `distance(u, v)` | **Returns shortest path distance**, or `std::nullopt` if unreachable. | O(V + E) |
+| `begin()` / `end()` | **Iterators** for range-based loops over vertices. | O(1) |
 
 ## Prerequisites
 

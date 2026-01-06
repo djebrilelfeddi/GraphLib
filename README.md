@@ -98,10 +98,10 @@ To build and run all tests:
 make test
 ```
 
-Or individual exercises:
+Or individual tests:
 
 ```bash
-make exercice3  # Builds and runs logic for exercise 3
+make test1  # Builds and runs logic for test 1
 ```
 
 ## Documentation

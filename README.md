@@ -1,7 +1,19 @@
-# GraphLib - C++20 Generic Graph Library
+<div align="center">
 
-![Language](https://img.shields.io/badge/language-C%2B%2B20-blue.svg)
-![License](https://img.shields.io/badge/license-MIT-green.svg)
+<!-- Logo -->
+<img src="https://i.ibb.co/Xr6w8Fyv/graphlib.png" alt="GraphLib Logo" width="900"/>
+
+<br/>
+
+[![C++](https://img.shields.io/badge/C++-20-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)](https://isocpp.org/)
+
+---
+
+</div>
+
+<br/>
+
+# GraphLib - C++20 Generic Graph Library
 
 **GraphLib** is a high-performance, header-only C++20 library for managing and manipulating undirected graphs. Designed for efficiency and ease of use, it leverages modern C++ features and standard STL containers, and works with any efficient key type (integers, strings, custom structures).
 
@@ -105,3 +117,5 @@ doxygen Doxyfile
 ## Author
 
 **EL FEDDI Djebril**
+
+![License](https://img.shields.io/badge/license-MIT-green.svg)

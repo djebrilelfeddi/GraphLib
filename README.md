@@ -8,7 +8,6 @@
 [![C++](https://img.shields.io/badge/C++-20-00599C?style=for-the-badge&logo=cplusplus&logoColor=white)](https://isocpp.org/)
 [![Header Only](https://img.shields.io/badge/Header--Only-✓-success?style=for-the-badge)](https://en.wikipedia.org/wiki/Header-only)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20|%20Linux%20|%20macOS-lightgrey?style=for-the-badge)](https://github.com/djebrilelfeddi/GraphLib)
-[![Tests](https://img.shields.io/badge/Tests-Passing-brightgreen?style=for-the-badge&logo=checkmarx&logoColor=white)](https://github.com/djebrilelfeddi/GraphLib)
 [![Docs](https://img.shields.io/badge/Docs-Doxygen-blue?style=for-the-badge&logo=readthedocs&logoColor=white)](https://www.doxygen.nl/)
 
 ---

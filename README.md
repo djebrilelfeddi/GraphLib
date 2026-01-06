@@ -13,8 +13,6 @@
 
 <br/>
 
-# GraphLib - C++20 Generic Graph Library
-
 **GraphLib** is a high-performance, header-only C++20 library for managing and manipulating undirected graphs. Designed for efficiency and ease of use, it leverages modern C++ features and standard STL containers, and works with any efficient key type (integers, strings, custom structures).
 
 ## Features

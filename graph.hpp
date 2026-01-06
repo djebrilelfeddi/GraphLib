@@ -1,5 +1,3 @@
-//EL FEDDI
-
 /**
  * @file graph.hpp
  * @brief Undirected graph implementation using adjacency list
@@ -24,10 +22,9 @@ namespace std {
         size_t operator()(const std::pair<T1, T2>& p) const {
             size_t h1 = std::hash<T1>{}(p.first);
             size_t h2 = std::hash<T2>{}(p.second);
-            // i've used this method because i saw that you used boost for the tests, and it is the one used in the c++ boost library i found here:
+            // using boost hash_combine method
             // https://www.boost.org/doc/libs/latest/libs/container_hash/doc/html/hash.html#ref_hash_combine
             return h1 ^ (h2 + 0x9e3779b9 + (h1 << 6) + (h1 >> 2));
-            // i could have used hash_combine directly, but i didnt want to have a dependency on boost for this
         }
     };
 }
@@ -329,7 +326,7 @@ public:
         return std::nullopt;
     }
 
-        /**
+    /**
      * @brief Iterator class to iterate over graph vertices
      * Satisfies C++ LegacyInputIterator requirements that you can find here https://en.cppreference.com/w/cpp/named_req/InputIterator
      */

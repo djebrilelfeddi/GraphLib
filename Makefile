@@ -4,41 +4,58 @@ CXX = g++
 CXXFLAGS = -std=c++20 -Wall -Ofast
 
 # Detect OS and set appropriate Boost library name
-# Windows/MSYS2 uses -mt suffix since only mt is available on MSYS2, MINGW,.., Linux uses no suffix
 ifeq ($(OS),Windows_NT)
     BOOST_LIBS = -lboost_unit_test_framework-mt
     EXE_EXT = .exe
     RUN_PREFIX = 
+    MKDIR = if not exist build mkdir build
+    RMDIR = if exist build rmdir /s /q build
 else
     BOOST_LIBS = -lboost_unit_test_framework
     EXE_EXT =
     RUN_PREFIX = ./
+    MKDIR = mkdir -p build
+    RMDIR = rm -rf build
 endif
 
-# Targets
-EXERCISES = exercice1 exercice2 exercice3 exercice4 exercice5 exercice6
+# Test targets
+TESTS = test1 test2 test3 test4 test5 test6
 
-.PHONY: all clean boost test testboost
+.PHONY: all clean test testboost docs
 
-all: $(EXERCISES)
+all: $(TESTS)
 
-exercice%: exercice%.cpp graph.hpp
-	$(CXX) $(CXXFLAGS) -o $@$(EXE_EXT) $<
+# Build test executables
+test%: tests/test%.cpp graph.hpp
+	$(MKDIR)
+	$(CXX) $(CXXFLAGS) -I. -o build/$@$(EXE_EXT) $<
 
-boost: boosttest.cpp graph.hpp
-	$(CXX) $(CXXFLAGS) -o boosttest$(EXE_EXT) $< $(BOOST_LIBS)
+# Boost tests
+boost: tests/boosttests.cpp graph.hpp
+	$(MKDIR)
+	$(CXX) $(CXXFLAGS) -I. -o build/boosttests$(EXE_EXT) $< $(BOOST_LIBS)
 
 clean:
-	rm -f *.exe exercice1 exercice2 exercice3 exercice4 exercice5 exercice6 boosttest
+	$(RMDIR)
 
+# Run all tests
 test: all
-	@echo "=== exercice1 ===" && $(RUN_PREFIX)exercice1$(EXE_EXT)
-	@echo "=== exercice2 ===" && $(RUN_PREFIX)exercice2$(EXE_EXT)
-	@echo "=== exercice3 ===" && $(RUN_PREFIX)exercice3$(EXE_EXT)
-	@echo "=== exercice4 ===" && $(RUN_PREFIX)exercice4$(EXE_EXT)
-	@echo "=== exercice5 ===" && $(RUN_PREFIX)exercice5$(EXE_EXT)
-	@echo "=== exercice6 ===" && $(RUN_PREFIX)exercice6$(EXE_EXT)
+	@echo "=== test1 ===" 
+	$(RUN_PREFIX)build/test1$(EXE_EXT)
+	@echo "=== test2 ===" 
+	$(RUN_PREFIX)build/test2$(EXE_EXT)
+	@echo "=== test3 ===" 
+	$(RUN_PREFIX)build/test3$(EXE_EXT)
+	@echo "=== test4 ===" 
+	$(RUN_PREFIX)build/test4$(EXE_EXT)
+	@echo "=== test5 ===" 
+	$(RUN_PREFIX)build/test5$(EXE_EXT)
+	@echo "=== test6 ===" 
+	$(RUN_PREFIX)build/test6$(EXE_EXT)
 
 testboost: boost
 	@echo "Running Boost tests..."
-	$(RUN_PREFIX)boosttest$(EXE_EXT)
+	$(RUN_PREFIX)build/boosttests$(EXE_EXT)
+
+docs:
+	doxygen Doxyfile

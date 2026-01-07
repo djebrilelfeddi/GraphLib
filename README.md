@@ -59,8 +59,13 @@ Since GraphLib is a header-only library, no compilation is required for the libr
 | `bfs(v, maxv)` | **Performs BFS from a vertex.** Optional limit on visited vertices. | O(V + E) |
 | `distance(u, v)` | **Returns shortest path distance**, or `std::nullopt` if unreachable. | O(V + E) |
 | `begin()` / `end()` | **Iterators** for range-based loops over vertices. | O(1) |
+| `toDot()` | **Exports graph to Graphviz DOT format.** Requires `operator<<` for custom types. | O(m) |
 
 ## Usage Example
+
+<div align="center">
+<img src="https://iili.io/fOj3e7R.png" alt="GraphLib Logo" width="500"/>
+</div>
 
 ```cpp
 #include <iostream>
@@ -74,11 +79,6 @@ int main() {
     g.addEdge(1, 2);
     g.addEdge(2, 3);
     g.addEdge(1, 4);
-
-    // Graph structure:
-    //     1 --- 2 --- 3
-    //     |
-    //     4
 
     std::cout << g.degree(1) << std::endl;          // Output: 2
     std::cout << g.countVertices() << std::endl;    // Output: 4
@@ -99,6 +99,9 @@ int main() {
 ```
 
 ### With Custom Struct
+<div align="center">
+<img src="https://iili.io/fOhm5Is.png" alt="GraphLib Logo" width="500"/>
+</div>
 
 ```cpp
 #include <iostream>
@@ -131,11 +134,6 @@ int main() {
     g.addEdge(c, d);
     g.addEdge(d, a);
 
-    // Graph structure (a square):
-    //  d --- c
-    //  |     |
-    //  a --- b
-
     std::cout << g.countVertices() << std::endl;  // Output: 4
     std::cout << g.countEdges() << std::endl;     // Output: 4
     std::cout << g.degree(a) << std::endl;        // Output: 2
@@ -147,6 +145,37 @@ int main() {
     return 0;
 }
 ```
+
+## Visualization
+
+Export your graph to [Graphviz](https://graphviz.org/) DOT format:
+
+```cpp
+#include <fstream>
+#include "graphlib.hpp"
+
+int main() {
+    Graph<int> g;
+    g.addEdge(1, 2);
+    g.addEdge(2, 3);
+    g.addEdge(3, 1);
+
+    // Export to DOT file
+    std::ofstream file("graph.dot");
+    file << g.toDot();
+    file.close();
+
+    return 0;
+}
+```
+
+A .dot file will be generated. You can either generate an image:
+
+```bash
+dot -Tpng graph.dot -o graph.png
+```
+
+**Or use [Graphviz Online](https://dreampuf.github.io/GraphvizOnline/)**
 
 ## Running Tests
 

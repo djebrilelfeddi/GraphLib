@@ -14,6 +14,7 @@
 #include <queue>
 #include <optional>
 #include <type_traits>
+#include <sstream>
 
 // Specialization of std::hash for std::pair
 namespace std {
@@ -322,6 +323,27 @@ public:
             }
         }
         return std::nullopt;
+    }
+
+    /**
+     * @brief Exports the graph to Graphviz DOT format
+     * @return A string containing the DOT representation
+     * @note Requires Vertex type to be streamable with operator<<
+     * @note Complexity: O(m) where m is the number of edges
+     */
+    template<typename V = Vertex>
+    std::string toDot() const {
+        std::ostringstream oss;
+        oss << "graph G {\n";
+        for (const auto& [u, neighbors] : adj) {
+            for (const auto& v : neighbors) {
+                if (u < v) {  // Avoid duplicate edges
+                    oss << "  \"" << u << "\" -- \"" << v << "\";\n";
+                }
+            }
+        }
+        oss << "}\n";
+        return oss.str();
     }
 
     /**
